@@ -16,25 +16,37 @@
 
     h1 {
       margin-top: 80px;
-      font-size: 40px;
+      font-size: 48px;
       font-weight: bold;
+      animation: glowTitle 1.5s infinite alternate, heartbeat 3s infinite;
+    }
+
+    /* Brillo */
+    @keyframes glowTitle {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff99cc; }
+      to   { text-shadow: 0 0 20px #fff, 0 0 40px #ff66aa; }
+    }
+
+    /* Latido */
+    @keyframes heartbeat {
+      0%   { transform: scale(1); }
+      25%  { transform: scale(1.1); }
+      50%  { transform: scale(1); }
+      75%  { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     .options {
-      margin-top: 60px;
-      position: relative; /* contenedor relativo */
-      height: 400px; /* espacio para que el botón "No" se mueva */
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 40px; /* espacio entre botones */
+      margin-top: 40px;
+      position: relative;
+      height: 200px; /* espacio para que el botón "No" se mueva */
     }
 
     button {
-      font-size: 20px;
-      padding: 12px 24px;
+      font-size: 28px;
+      padding: 18px 36px;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: bold;
     }
@@ -42,12 +54,25 @@
     .yes {
       background-color: #ff3366;
       color: white;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-120%); /* fijo a la izquierda del centro */
+      top: 20px;
+      animation: glowYes 2s infinite alternate;
+    }
+
+    @keyframes glowYes {
+      from { box-shadow: 0 0 10px #ff99cc, 0 0 20px #ff66aa; }
+      to   { box-shadow: 0 0 20px #ff99cc, 0 0 40px #ff66aa; }
     }
 
     .no {
       background-color: #666;
       color: white;
-      position: relative; /* empieza normal, junto al "Sí" */
+      position: absolute;
+      left: 50%;
+      transform: translateX(20%); /* fijo a la derecha del centro */
+      top: 20px;
     }
 
     .floating-heart {
@@ -90,7 +115,6 @@
     noButton.addEventListener("mouseenter", () => {
       const x = Math.random() * (options.offsetWidth - noButton.offsetWidth);
       const y = Math.random() * (options.offsetHeight - noButton.offsetHeight);
-      noButton.style.position = "absolute"; // cambia a absoluto solo cuando se escapa
       noButton.style.left = x + "px";
       noButton.style.top = y + "px";
     });
